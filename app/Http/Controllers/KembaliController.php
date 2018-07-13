@@ -48,18 +48,25 @@ class KembaliController extends Controller
     public function store(Request $request, $id)
     {
 
-        $rental = new Rental;
-        $rental->nik_kons = $request->nik_kons;
-        $rental->nama_kons = $request->nama_kons;
-        $rental->jk_kons = $request->jk_kons;
-        $rental->alamat = $request->alamat;
-        $rental->no_hp = $request->no_hp;
-        $rental->tgl_sewa = $request->tgl_sewa;
-        $rental->tgl_kembali = $request->tgl_kembali;
-        $rental->mobil_id = $request->mobil_id;
-        $rental->supir_id = $request->supir_id;
-        $rental->status="Belum";
+        $this->validate($request,[
+            
+        'tgl_kembali_akhir'=>'required|',
+        'jumlah_hari'=>'required|',
+        'telat'=>'required|',
+        'denda'=>'required|',
+        'total_harga'=>'required|',
+        'rental_id'=>'required|',
 
+         ]);   
+
+        $kembali = new Kembali;
+        $kembali->tgl_kembali_akhir = $request->tgl_kembali_akhir;
+        $kembali->jumlah_hari = $request->jumlah_hari;
+        $kembali->telat = $request->telat;
+        $kembali->denda = $request->denda;
+        $kembali->total_harga = $request->total_harga;
+        $kembali->rental_id = $request->rental_id;
+        
         $awal = new Carbon($request->tgl_sewa);
         $akhir = new Carbon ($request->tgl_kembali);
         $hasil = "{$awal->diffInDays($akhir)}";
@@ -72,8 +79,9 @@ class KembaliController extends Controller
         $hargasupir = $supir->harga_sewasupir;
 
         $rental->total_sewa=($hargamobil + $hargasupir) * $hasil;
-        $rental->save();
-        return redirect('kembali');
+        // $rental->save();
+        return $kembali;
+        // return redirect('kembali');
 
 
         // $this->validate($request,[

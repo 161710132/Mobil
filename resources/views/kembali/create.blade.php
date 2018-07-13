@@ -20,6 +20,13 @@
 			<input type="hidden" name="_token" value="{{csrf_token()}}">
 			{{csrf_field()}}
 
+			
+			<input type="hidden" name="jumlah_hari" value="{{$kembali->jumlah_hari}}">
+			<input type="hidden" name="telat" value="{{$kembali->telat}}">
+			<input type="hidden" name="denda" value="{{$kembali->denda}}">
+			<input type="hidden" name="total_harga" value="{{$kembali->total_harga}}">
+			<input type="hidden" name="rental_id" value="{{$kembali->rental_id}}">
+			
 				<center><b> Data Rental</b></center><br>
 					NIK Konsumen : <b>{{$kembali->Rental->nik_kons}}</b><br>
 					Nama Konsumen : <b>{{$kembali->Rental->nama_kons}}</b><br>
