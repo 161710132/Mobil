@@ -91,11 +91,12 @@
 			  		{{ csrf_field() }}
 			  		<div class="form-group {{ $errors->has('alamat') ? ' has-error' : '' }}">
 			  			<label class="control-label">alamat supir</label>	
-			  			<input type="text" name="alamat" class="form-control"  required>
+			  			<textarea name="alamat" class="form-control"  required></textarea>
 			  			@if ($errors->has('alamat'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('alamat') }}</strong>
                             </span>
+
                         @endif
 			  		</div>
 

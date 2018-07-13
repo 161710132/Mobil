@@ -1,4 +1,4 @@
-@extends('layouts.adminn')
+@extends('layouts.member')
 @section('content')
 <br>
 
@@ -45,17 +45,12 @@
 <label class="control-label">Total Sewa  :</label> {{$kembali->Rental->total_sewa}}
 <br>
 
-<div class="panel-title pull-right">
-<a class="btn btn-primary" href="{{ route('kembali.index') }}">Kembali</a>
-<a class="btn btn-danger" href="/adminn/thanks">Beres</a>
+<div class="panel-title pull-right"><a class="btn btn-success" href="{{ route('kembali') }}">Kembali</a>
+<a class="btn btn-danger" href="{{ route('thanks') }}">Beres</a>
+
 
 			  </div>
 
-<!-- <div class="panel-title pull-right"><a class="btn btn-success" href="{{ route('kembali.index') }}">Kembali</a> <div class="panel-title pull-right"><a class="btn btn-success" href="thanks">Beres</a></div>
-
-		
-
-</div> -->
 
         		</div>
 			</div>	

@@ -1,23 +1,21 @@
-@extends('layouts.app')
+
 
 @section('content')
-<div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+        <section class="content-header">
+             <h1>
+               Dashboard
+             </h1>
+            <ol class="breadcrumb">
+              <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+              <li class="active">Dashboard</li>
+            </ol>
+        </section><br><br><br>
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
-        </div>
+      <div class="container"><center>
+        <h1>Aplikasi Rental Mobil</h1><br><br>
+        <img src="/img/aaa.png"></center>
+      </div>
+        
     </div>
-</div>
 @endsection

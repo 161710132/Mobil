@@ -1,4 +1,4 @@
-@extends('layouts.adminn')
+@extends('layouts.member')
 @section('content')
 
 <section class="card">
@@ -14,7 +14,7 @@
 			  	</div>
 			  </div>
 			  <div class="panel-body">
-			  	<form action="{{ route('rental.store') }}" method="post" >
+			  	<form action="{{ route('karyawan.store') }}" method="post" >
 			  		{{ csrf_field() }}
 			  		<div class="form-group {{ $errors->has('nik_kons') ? ' has-error' : '' }}">
 			  			<label class="control-label">NIK Customer</label>	
@@ -56,7 +56,7 @@
 			  	
 			  		<div class="form-group {{ $errors->has('alamat') ? ' has-error' : '' }}">
 			  			<label class="control-label">Alamat Customer</label>	
-			  			<textarea  name="alamat" class="form-control"  required></textarea>
+			  			<input type="text" name="alamat" class="form-control"  required>
 			  			@if ($errors->has('alamat'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('alamat') }}</strong>

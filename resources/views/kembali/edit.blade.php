@@ -15,10 +15,40 @@
 			  	
 			  </div>
 
-			  <div class="panel-body">
-              <form class="form-horizontal form-label-left" action="{{ route('kembali.update',$kembali->id) }}" method="post" enctype="multipart/form-data">
-                <input name="_method" type="hidden" value="PATCH">
-              {{ csrf_field() }}
+			   <div class="panel-body">
+		<form action="{{route('edit.update',$kembali->id)}}" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="_method" value="PUT">
+			<input type="hidden" name="_token" value="{{csrf_token()}}">
+			{{csrf_field()}}
+
+
+			
+			<input type="hidden" name="jumlah_hari" value="{{$kembali->jumlah_hari}}">
+			<input type="hidden" name="total_sewa" value="{{$kembali->total_sewa}}">
+			<input type="hidden" name="tgl_kembali_akhir" value="{{$kembali->tgl_kembali_akhir}}">			
+			<input type="hidden" name="jumlah_hari_akhir" value="{{$kembali->jumlah_hari_akhir}}">
+			<input type="hidden" name="telat" value="{{$kembali->telat}}">
+			<input type="hidden" name="denda" value="{{$kembali->denda}}">
+			<input type="hidden" name="total_harga" value="{{$kembali->total_harga}}">
+
+			<div class="form-group">
+				<div class="col-md-4">
+					<div class="well">
+						<center><b> Data Rental</b></center><br>
+					NIK Konsumen : <b>Rp. {{$rental->nik_kons}}</b><br>
+					Nama Konsumen : <b>Rp. {{$rental->nama_kons}}</b><br>
+					Jenis Kelamin : <b>Rp. {{$rental->jk_kons}}</b><br>
+					Alamat : <b>Rp. {{$rental->alamat}}</b><br>
+					No Handphone : <b>Rp. {{$rental->no_hp}}</b><br>
+					Tanggal Sewa : <b>Rp. {{$rental->tgl_sewa}}</b><br>
+					Tanggal Kembali : <b>Rp. {{$rental->tgl_kembali}}</b><br>
+					Jumlah Hari : <b>Rp. {{$rental->jumlah_hari}}</b><br>
+					Total Sewa : <b>Rp. {{$rental->total_sewa}}</b><br>
+					Mobil : <b>{{$rental->Mobil->mobil_id}}</b><br>
+					Supir : <b>{{$rental->Supir->supir_id}}</b>
+					</div>
+				</div>
+			</div>
 
               
 
@@ -28,23 +58,6 @@
 			  			@if ($errors->has('tgl_kembali_akhir'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('tgl_kembali_akhir') }}</strong>
-                            </span>
-                        @endif
-			  		</div>
-
-
-			  		
-
-			  		<div class="form-group {{ $errors->has('rental_id') ? ' has-error' : '' }}">
-			  			<label class="control-label">Supir</label>	
-			  			<select name="rental_id" class="form-control">
-			  				@foreach($rental as $data)
-			  				<option value="{{ $data->id }}" {{ $selectedRental == $data->id ? 'selected="selected"' : '' }} >{{ $data->nik_kons }}</option>
-			  				@endforeach
-			  			</select>
-			  			@if ($errors->has('rental_id'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('rental_id') }}</strong>
                             </span>
                         @endif
 			  		</div>

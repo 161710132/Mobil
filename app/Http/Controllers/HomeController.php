@@ -36,6 +36,6 @@ class HomeController extends Controller
     }
 
      public function memberDashboard(){
-        return view('layouts.karyawan');
+        return view('layouts.member');
     }
 }

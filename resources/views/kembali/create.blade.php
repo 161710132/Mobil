@@ -15,15 +15,23 @@
 			  </div>
 
 			  <div class="panel-body">
+		    <form action="{{ route('kembali.store') }}" method="post" >
+			<input type="hidden" name="_method" value="PUT">
+			<input type="hidden" name="_token" value="{{csrf_token()}}">
+			{{csrf_field()}}
 
+				<center><b> Data Rental</b></center><br>
+					NIK Konsumen : <b>{{$kembali->Rental->nik_kons}}</b><br>
+					Nama Konsumen : <b>{{$kembali->Rental->nama_kons}}</b><br>
+					Tanggal Sewa : <b>{{$kembali->Rental->tgl_sewa}}</b><br>
+					Tanggal Kembali  : <b>{{$kembali->Rental->tgl_kembali}}</b><br>
+					Jumlah Hari : <b>{{$kembali->Rental->jumlah_hari}} Hari</b><br>
+					Total Sewa : <b>{{$kembali->Rental->total_sewa}}</b><br>
+				</div>
+			</div>
+				
 
-
-              <form class="form-horizontal form-label-left" action="{{ route('kembali.store') }}" method="post" enctype="multipart/form-data">
-              {{ csrf_field() }}
-
-
-
-             <div class="form-group {{ $errors->has('tgl_kembali_akhir') ? ' has-error' : '' }}">
+						<div class="form-group {{ $errors->has('tgl_kembali_akhir') ? ' has-error' : '' }}">
 			  			<label class="control-label">tgl_kembali_akhir</label>	
 			  			<input type="date" name="tgl_kembali_akhir" class="form-control"  required>
 			  			@if ($errors->has('tgl_kembali_akhir'))
@@ -33,29 +41,9 @@
                         @endif
 			  		</div>
 
-			  		<div class="form-group {{ $errors->has('rental_id') ? ' has-error' : '' }}">
-			  			<label class="control-label">NIK Konsumen</label>	
-			  			<select name="rental_id" class="form-control">
-			  				@foreach($rental as $data)
-			  				<option value="{{ $data->id }}">{{ $data->nik_kons }}</option>
-			  				@endforeach
-			  			</select>
-			  			@if ($errors->has('rental_id'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('rental_id') }}</strong>
-                            </span>
-                        @endif
-			  		</div>
+			  		
 
-			  		<!-- <div class="form-group {{ $errors->has('status') ? ' has-error' : '' }}">
-			  			<label class="control-label">Status</label>	
-			  			<input type="text" name="status" class="form-control"  >
-			  			@if ($errors->has('status'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('status') }}</strong>
-                            </span>
-                        @endif
-			  		</div> -->
+			  		
 			  		
 			  		<div class="form-group">
 			  			<button type="submit" class="btn btn-primary">Tambah</button>

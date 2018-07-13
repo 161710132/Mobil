@@ -21,8 +21,9 @@
     @include('karyawan.navbar')
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
+
       <!-- partial:partials/_sidebar.html -->
-      @include('karyawan.sidebar')
+      @include('karyawan.sidebar')  
       <!-- partial dashboard -->
       @yield('content')
       <!-- end dashboard -->

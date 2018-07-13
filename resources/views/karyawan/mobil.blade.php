@@ -1,7 +1,5 @@
 @extends('layouts.karyawan')
-
 @section('content')
-
 <section class="card">
 <div class="card-body text-secondary"></div>
 </section>
@@ -13,9 +11,6 @@
 			  <div class="panel-heading">Data Mobil 
 			  <br>
 			  <br>
-			  <div class="panel-title pull-right"><a class="btn btn-success" href="{{ route('mobil.create') }}">Tambah</a>
-
-			  </div>
 			  <br>
 			  <br>
 			   <div class="table-responsive table--no-card m-b-30">
@@ -55,18 +50,7 @@
 				    	
 				    	<td><p>{{ $data->status }}</p></td>
 						<td>
-							<a class="btn btn-warning" href="{{ route('mobil.edit',$data->id) }}">Edit</a>
-						</td>
-						<td>
 							<a href="{{ route('mobil.show',$data->id) }}" class="btn btn-success">Show</a>
-						</td>
-						<td>
-							<form method="post" action="{{ route('mobil.destroy',$data->id) }}">
-								<input name="_token" type="hidden" value="{{ csrf_token() }}">
-								<input type="hidden" name="_method" value="delete">
-
-								<button type="submit" class="btn btn-danger">Delete</button>
-							</form>
 						</td>
 				      </tr>
 				      @endforeach	

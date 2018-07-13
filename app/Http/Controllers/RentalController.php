@@ -22,6 +22,11 @@ class RentalController extends Controller
         return view('rental.index',compact('rental'));
     }
 
+    public function thanks()
+    {
+          return view('adminn.thanks');
+    }
+
      public function daftarmobil()
     {
         $rental = Rental::all();
@@ -29,6 +34,8 @@ class RentalController extends Controller
         $supir = Supir::all();
         return view('rental.daftarmobil',compact('rental','mobil','supir'));
     }
+
+    
 
     /**
      * Show the form for creating a new resource.

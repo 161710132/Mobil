@@ -1,4 +1,4 @@
-@extends('layouts.adminn')
+@extends('layouts.member')
 @section('content')
 <br>
 
@@ -42,7 +42,7 @@
 
 
 <div class="panel-title pull-right">
-<a class="btn btn-primary" href="{{ route('mobil.index') }}">Kembali</a>
+<a class="btn btn-primary" href="{{ route('mobil') }}">Kembali</a>
 
 			  </div>
 

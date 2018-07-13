@@ -15,32 +15,22 @@
 			  </div>
 
 			  <div class="panel-body">
-              <form class="form-horizontal form-label-left" action="{{ route('rental.update',$rental->id) }}" method="post" enctype="multipart/form-data">
-                <input name="_method" type="hidden" value="PATCH">
-              {{ csrf_field() }}
-
-              
-
-			  <div class="form-group {{ $errors->has('nik_kons') ? ' has-error' : '' }}">
-			  			<label class="control-label">nik_kons</label>	
-			  			<input type="text" value="{{ $rental->nik_kons }}" name="nik_kons" class="form-control"  required>
-			  			@if ($errors->has('nik_kons'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('nik_kons') }}</strong>
-                            </span>
-                        @endif
-			  		</div>
+		    <form action="{{route('rental.update',$rental->id)}}" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="_method" value="PUT">
+			<input type="hidden" name="_token" value="{{csrf_token()}}">
+			{{csrf_field()}}
+			<input type="hidden" name="mobil_id" value="{{$rental->mobil_id}}">
+			<input type="hidden" name="supir_id" value="{{$rental->supir_id}}">
+			<div class="form-group">
+				<label class="control-lable">No Identitas</label>
+				<input type="number" name="nik_kons" class="form-control" required=""	value="{{$rental->nik_kons}}">
+			</div>
 
 
-			  		<div class="form-group {{ $errors->has('nama_kons') ? ' has-error' : '' }}">
-			  			<label class="control-label">nama_kons</label>	
-			  			<input type="text" value="{{ $rental->nama_kons }}" name="nama_kons" class="form-control"  required>
-			  			@if ($errors->has('nama_kons'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('nama_kons') }}</strong>
-                            </span>
-                        @endif
-			  		</div>
+				<div class="form-group">
+				<label class="control-lable">Nama</label>
+				<input type="text" name="nama" class="form-control" required="" value="{{$rental->nama_kons}}">
+			</div>
 
 			  		<div class="form-group {{ $errors->has('jk_kons') ? ' has-error' : '' }}">
 			  			<label class="control-label">jk_kons</label>	

@@ -1,4 +1,4 @@
-@extends('layouts.adminn')
+@extends('layouts.member')
 @section('content')
 
 <section class="card">
@@ -11,7 +11,7 @@
 			  <div class="card-title">Data Pengembalian 
 			  <br>
 			  <br>
-			  <div class="panel-title pull-right"><a class="btn btn-success" href="{{ route('kembali.create') }}">Tambah</a>
+			  <div class="panel-title pull-right"><a class="btn btn-success" href="{{ route('member.create') }}">Tambah</a>
 
 			  </div>
 			  <br>
@@ -21,11 +21,8 @@
                  <thead>
 			  		<tr>
 			  		  <th>No</th>
-			  		  <th>NIK Konsumen</th>
-			  		  <th>Nama Konsumen</th>
-			  		  <th>Jenis Kelamin</th>
-			  		  <th>Alamat</th>
 			  		  <th>Tanggal Kembali Akhir</th>
+			  		  <th>NIK Konsumen</th>
 			  		  <th colspan="3">Action</th>
 			  		</tr>
 				  	</thead>
@@ -35,22 +32,19 @@
 				  		@foreach($kembali as $data)
 				  	  <tr>
 				    	<td>{{ $no++ }}</td>
-				    	<td>{{ $data->nik_kons }}</td> 
-				    	<td>{{ $data->nama_kons }}</td>
-				    	<td>{{ $data->jk_kons }}</td>
-				    	<td>{{ $data->alamat}}</td>
-				    	<td>{{ $data->tgl_kembali}}</td>
+				    	<td>{{ $data->tgl_kembali_akhir }}</td>
+				    	<td><p>{{ $data->Rental->nik_kons }}</p></td>
 				    	
 				    	
 				    	
 
 				    	
 						<td>
-							<a class="btn btn-warning" href="{{ route('kembali.edit',$data->id) }}">Edit</a>
+							<a class="btn btn-warning" href="{{ route('member.edit',$data->id) }}">Edit</a>
 						</td>
 
 						<td>
-							<a class="btn btn-primary" href="{{ route('kembali.show',$data->id) }}">Show</a>
+							<a class="btn btn-primary" href="{{ route('member.show',$data->id) }}">Show</a>
 						</td>
 
 						<!-- <td>

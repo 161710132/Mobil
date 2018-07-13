@@ -34,7 +34,9 @@ class KembaliController extends Controller
     {
         
         $rental = Rental::all();
-        return view('kembali.create',compact('rental'));
+        $kembali = Kembali::all();
+        return view('kembali.create',compact('rental','kembali'));
+
     }
 
     /**
@@ -43,38 +45,62 @@ class KembaliController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
 
-         $this->validate($request,[
-            
-            'tgl_kembali_akhir'=>'required|',
-            'rental_id'=>'required|'
-                
-                
-        ]);
+        $rental = new Rental;
+        $rental->nik_kons = $request->nik_kons;
+        $rental->nama_kons = $request->nama_kons;
+        $rental->jk_kons = $request->jk_kons;
+        $rental->alamat = $request->alamat;
+        $rental->no_hp = $request->no_hp;
+        $rental->tgl_sewa = $request->tgl_sewa;
+        $rental->tgl_kembali = $request->tgl_kembali;
+        $rental->mobil_id = $request->mobil_id;
+        $rental->supir_id = $request->supir_id;
+        $rental->status="Belum";
 
-        $kembali = new Kembali;
-        $kembali->tgl_kembali_akhir = $request->tgl_kembali_akhir;
-        
-        
-        
-        $awal = new Carbon($kembali->rental_id = $request->tgl_sewa);
-        $akhir = new Carbon ($request->tgl_kembali_akhir);
+        $awal = new Carbon($request->tgl_sewa);
+        $akhir = new Carbon ($request->tgl_kembali);
         $hasil = "{$awal->diffInDays($akhir)}";
-        $kembali->jumlah_hari = $hasil;
+        $rental->jumlah_hari = $hasil;
 
-        $kembali->telat = $hasil- ($kembali->rental_id = $request->jumlah_hari);
+        $mobil = Mobil::where('id', $rental->mobil_id)->first();
+        $hargamobil = $mobil->harga_sewa;
 
-        // $denda=($hasil * ($request->harga_sewa + $request->harga_sewasupir))- $request->total_sewa;
-        // $rental->denda=$denda;
-        // $rental->total_harga= $hasil * ($request->harga_mobil + $request->harga_supir);
+        $supir = Supir::where('id', $rental->supir_id)->first();
+        $hargasupir = $supir->harga_sewasupir;
 
+        $rental->total_sewa=($hargamobil + $hargasupir) * $hasil;
+        $rental->save();
+        return redirect('kembali');
+
+
+        // $this->validate($request,[
+            
+        //     'tgl_kembali_akhir'=>'required|',
+        //     'rental_id'=>'required|'
+                
+                
+        // ]);
+        // $kembali = kembali::findOrFail($request->id);
+        // $kembali->tgl_kembali_akhir = $request->tgl_kembali_akhir;
         
         
-        // return $kembali;
-        $kembali->save();
-        return redirect()->route('kembali.index');
+        
+        // $awal = new Carbon($kembali->rental_id = $request->tgl_sewa);
+        // $akhir = new Carbon ($request->tgl_kembali_akhir);
+        // $hasil = "{$awal->diffInDays($akhir)}";
+        // $kembali->jumlah_hari = $hasil;
+        // $kembali->telat = $hasil- ($kembali->rental_id = $request->jumlah_hari);
+        // // $denda=($hasil * ($request->harga_sewa + $request->harga_sewasupir))- $request->total_sewa;
+        // // $rental->denda=$denda;
+        // // $rental->total_harga= $hasil * ($request->harga_mobil + $request->harga_supir);
+        
+        
+        // // return $kembali;
+        // $kembali->save();
+        // return redirect()->route('kembali.index');
     }
 
     /**
@@ -84,7 +110,7 @@ class KembaliController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function creates($id)
+    public function tambahcreate($id)
     {
        
         $rental = Rental::findOrFail($id);
@@ -106,12 +132,8 @@ class KembaliController extends Controller
      */
     public function edit($id)
     {
-        $kembali = Kembali::findOrFail($id);
-        $rental = Rental::all();
-        $selectedRental = Kembali::findOrFail($id)->supir_id;
-        
-        // dd($selected);
-        return view('kembali.edit',compact('kembali','rental','selectedRental'));
+        $kembali=Kembali::findOrFail($id);
+        return view('kembali.edit', compact('kembali'));
     }
 
     /**
@@ -123,41 +145,33 @@ class KembaliController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            
-            'tgl_kembali_akhir'=>'required|',
-            'rental_id'=>'required|'
-                
-                
-        ]);
+        $rental = rental::findOrFail($request->id);
+        $rental = new Rental;
+        $rental->nik_kons = $request->nik_kons;
+        $rental->nama_kons = $request->nama_kons;
+        $rental->jk_kons = $request->jk_kons;
+        $rental->alamat = $request->alamat;
+        $rental->no_hp = $request->no_hp;
+        $rental->tgl_sewa = $request->tgl_sewa;
+        $rental->tgl_kembali = $request->tgl_kembali;
+        $rental->mobil_id = $request->mobil_id;
+        $rental->supir_id = $request->supir_id;
+        $rental->status="Belum";
 
-        $kembali = Kembali::findOrFail($id);
-        $kembali->tgl_kembali_akhir = $request->tgl_kembali_akhir;
-        
-        
-        
-        $awal = new Carbon($kembali->rental_id = $request->tgl_sewa);
-        $akhir = new Carbon ($request->tgl_kembali_akhir);
+        $awal = new Carbon($request->tgl_sewa);
+        $akhir = new Carbon ($request->tgl_kembali);
         $hasil = "{$awal->diffInDays($akhir)}";
-        $kembali->jumlah_hari = $hasil;
+        $rental->jumlah_hari = $hasil;
 
-        $kembali->telat = $hasil- ($kembali->rental_id = $request->jumlah_hari);
+        $mobil = Mobil::where('id', $rental->mobil_id)->first();
+        $hargamobil = $mobil->harga_sewa;
 
-        // $denda=($hasil * ($request->harga_sewa + $request->harga_sewasupir))- $request->total_sewa;
-        // $rental->denda=$denda;
-        // $rental->total_harga= $hasil * ($request->harga_mobil + $request->harga_supir);
+        $supir = Supir::where('id', $rental->supir_id)->first();
+        $hargasupir = $supir->harga_sewasupir;
 
-        $rental = Rental::where('id', $request->rental_id)->first();
-        $hargamobil = $rental->Mobil->harga_sewa;
-        $hargasupir = $rental->Supir->harga_sewasupir;
-        $kembali->denda = $hasil * ($hargamobil + $hargasupir);
-
-        $kembali->total_harga = $rental->total_sewa + $kembali->denda;
-        $kembali->rental_id = $request->rental_id;
-        
-        // return $kembali;
-        $kembali->save();
-        return redirect()->route('kembali.index');
+        $rental->total_sewa=($hargamobil + $hargasupir) * $hasil;
+        $rental->save();
+        return redirect('kembali');
     }
 
     /**
